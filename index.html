@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <title>Lista de pessoas</title>
+</head>
+
+<body>
+  <h1>Lista de convidados</h1>
+  <p>Lista de pessoas que irão ao churrasco</p>
+
+  <div>
+    <div>
+      <input type="text" name="name" id="name">
+      <button onclick="handleAddPerson()">Adicionar</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Nome
+          </th>
+          <th>
+            Ação
+          </th>
+        </tr>
+
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Marianny Souza
+          </td>
+          <td>
+            <button>editar</button>
+            <button>excluir</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            Ruan Aragão
+          </td>
+          <td>
+            <button>editar</button>
+            <button>excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+
+<script src="./script.js"></script>
+</html>
