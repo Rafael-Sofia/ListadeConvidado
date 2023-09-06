@@ -1,59 +1,58 @@
-// const table = document.getElementById('.list-tasks')
+const localStorageKey = '@person'
 const table = document.querySelector('#list-tasks tbody[id="tbody"]')
 const input = document.querySelector('#name')
-let list = []
 
-const storage = () => {
-  let newTable = ''
+function handleAddPerson()
+{
+    // increment to localStorage
+    let values = JSON.parse(localStorage.getItem(localStorageKey) || "[]")
 
-  list.map(({name}) => {
+    values.push({
+      id: values.length,  
+      name: input.value
+    })
+    localStorage.setItem(localStorageKey,JSON.stringify(values))
+    showTbody()
 
-  newTable =
-  newTable +
-  `
-    <tr>
-      <td>
-        ${name}
-      </td>
-      <td>
-        <button>excluir</button>
-      </td>
-    </tr>
+    input.value = ''
+}
+
+function showTbody()
+{
+    let values = JSON.parse(localStorage.getItem(localStorageKey) || "[]")
     
-  `
-  })
-  
-table.innerHTML = newTable
+    console.log(values);
+    table.innerHTML = ''
 
+    values.forEach(({id, name}) => {
+      table.innerHTML += `
+      <tr>
+        <td>
+          ${name}
+        </td>
+        <td>
+          <button onclick="handleRemovePerson(${id}, '${name}')" >excluir</button>
+        </td>
+      </tr>
+      `
+    })
 }
 
-const handleAddPerson = () => {
+function handleRemovePerson(id, name)
+{
+    console.log(id)
+    console.log(name)
 
-  id = list.length;
-  
-  list.push({
-    id,
-    name:  input.value 
-  })
+    const isConfirmed = (confirm(`Realmente deseja remover o ${name}`))
 
-  localStorage.setItem('person',JSON.stringify(list))
-
-  input.value = ''
-
-  storage()
+    if(isConfirmed) {
+      let values = JSON.parse(localStorage.getItem(localStorageKey) || "[]")
+      let index = values.findIndex(x => x.id == id)
+      values.splice(index,1)
+      localStorage.setItem(localStorageKey,JSON.stringify(values))
+      showTbody()
+    }
+   
 }
 
-const listTable = () => {
-  const personLocalStorage = localStorage.getItem('person')
-
-  if (personLocalStorage) {
-    list = JSON.parse(personLocalStorage)
-  } 
-
-  storage()
-}
-
-listTable()
-
-
-
+showTbody()
