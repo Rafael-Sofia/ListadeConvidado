@@ -1,32 +1,59 @@
-const teste = localStorage.getItem('person')
-console.log(teste)
-
-const person = []
-localStorage.setItem('person',JSON.stringify(person))
-
+// const table = document.getElementById('.list-tasks')
+const table = document.querySelector('#list-tasks tbody[id="tbody"]')
+const input = document.querySelector('#name')
+let list = []
 
 const storage = () => {
-  const personLocalStorage = localStorage.getItem('person')
-  console.log(personLocalStorage)
+  let newTable = ''
+
+  list.map(({name}) => {
+
+  newTable =
+  newTable +
+  `
+    <tr>
+      <td>
+        ${name}
+      </td>
+      <td>
+        <button>excluir</button>
+      </td>
+    </tr>
+    
+  `
+  })
+  
+table.innerHTML = newTable
+
 }
 
 const handleAddPerson = () => {
 
-  const personLocalStorage = localStorage.getItem('person')
-
-  const person = JSON.parse(personLocalStorage);
-
-  const id = person.length;
-  const name = document.querySelector('#name').value
-  person.push({
+  id = list.length;
+  
+  list.push({
     id,
-    name
+    name:  input.value 
   })
-  
-  localStorage.setItem('person',JSON.stringify(person))
-  
+
+  localStorage.setItem('person',JSON.stringify(list))
+
+  input.value = ''
+
   storage()
 }
+
+const listTable = () => {
+  const personLocalStorage = localStorage.getItem('person')
+
+  if (personLocalStorage) {
+    list = JSON.parse(personLocalStorage)
+  } 
+
+  storage()
+}
+
+listTable()
 
 
 
